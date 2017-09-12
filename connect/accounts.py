@@ -60,7 +60,7 @@ def unlock_acct( account_addr, password, chain_addr, duration=1 ):
     except:
         print( 'Connection Error' )
         return None
-    status = connct.personal.unlockAccount( account_addr,
+    status = connect.personal.unlockAccount( account_addr,
                                    password)
     if status:
         print( 'Account Unlocked' )
