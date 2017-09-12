@@ -1,5 +1,5 @@
 from web3 import Web3
-from . import connection_tools
+import connection_tools
 
 # Client information class
 
@@ -45,19 +45,12 @@ class transaction:
         else:
             print('Incorrect client order')
             break
-        self.rec_send_address = client1.send
-        self.rec_rec_address = client1.receive
-        self.rec_amt = client1.amount
-        self.rec_tca = client1.tca
+        self.recv_send_address = client1.send
+        self.recv_rec_address = client1.receive
+        self.recv_amt = client1.amount
+        self.recv_tca = client1.tca
 
-        self.rec_send_address = client2.send
-        self.rec_amt = client2.amount
-        self.rec_tca = client2.tca
+        self.send_send_address = client2.send
+        self.send_amt = client2.amount
+        self.send_tca = client2.tca
 
-        #TODO: verifiy two amounts along with transaction costs are compatible
-
-        
-        
-        
-        
-        
