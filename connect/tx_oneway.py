@@ -17,7 +17,7 @@ class oneway_tx:
         self.gasPrice = gasPrice
         self.nonce = nonce
 
-    def info(self):
+    def info(self): # print info
         print('Transaction ID:',self.txid,
               'Sender Address:',self.send_addr,
               'Receiver Address:',self.recv_addr,
@@ -25,6 +25,12 @@ class oneway_tx:
               'Gas Amount:',self.gas,
               'Gas Price:',self.gasPrice,
               'Nonce:',self.nonce)
+
+    def rinfo(self): # return info
+        return [['Transaction ID','Sender Address','Receiver Address',
+                'Value Sent','Gas Amount','Gas Price','Nonce'],
+                [self.txid,self.send_addr,self.recv_addr,self.value,
+                 self.gas,self.gasPrice,self.nonce]]
 
     # Create proper dictionary taken by deploy function 
     def parameters(self):
