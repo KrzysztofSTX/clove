@@ -2,8 +2,8 @@
   
   After installing [Geth](https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum), dedicate a directory to store your blockchains and nodes. Here we will mark that folder ~ and create the following:
   
-  1. a directory to hold chain data, keys, and event log (one per chain) 
-  1. a directory for genesis blocks
+  1. Directory to hold chain data, keys, and event log (one per chain) 
+  1. Directory for genesis blocks
   
   > NOTE: The setup can get convoluted unless the chain directories are independent. 
   
@@ -46,7 +46,7 @@
   ~~~~~~~~~
   $ geth --datadir ~/geth_example/chain1node1 init ~/geth_example/gen1.json --networkid 1111 --port30303 console
   ~~~~~~~~~
-  But this can cause problems in setting up additional nodes. 
+  > But this can cause problems in setting up additional nodes. 
   
   This initializes 4 networks total. Instead of this, the second nodes can connect to our primary nodes by:
   ~~~~~~~~~
@@ -76,7 +76,7 @@
   > miner.stop() # to pause mining. 
   ~~~~~~~~~
   
-  # Implementing with Web3-py
+  ## Implementing with Web3-py
   
   When running one chain by itself, using Web3.py to connect is sufficiently easy:
   ~~~~~~~~~
@@ -91,13 +91,15 @@
   web3.miner.start(1)
   web3.miner.stop()
   ~~~~~~~~~
-  In case this throws an error [your default ipc_path for Web3 might be "/Users/yourname/Library/Ethereum/geth.ipc"] or you are running more than 1 chain, you can navigate inside your Python site-packages: /site-packages/web3/providers/ipc.py and on line 32 change the ipc_path variable. At this stage, if you go back to terminal and cd into one of the node folders, for example chain2node2, use the ls command to see that the folder contains a hidden element, geth.ipc. There are four of these geth.ipc files since we created 4 nodes. Copy the address of this .ipc file. Navigate into the ipc.py module of Web3, and paste the geth.ipc file address as the ipc_path variable on line 23:
+  In case this throws an error [your default ipc_path for Web3 might be "/Users/yourname/Library/Ethereum/geth.ipc"] or you are running more than 1 chain, you can navigate inside your Python site-packages: 
+> ~/site-packages/web3/providers/ipc.py 
+	and on line 32 change the ipc_path variable. At this stage, if you go back to terminal and cd into one of the node folders, for example chain2node2, use the *ls* command to see that the folder contains a hidden element, geth.ipc. There are four of these geth.ipc files since we created 4 nodes. Copy the address of this .ipc file. Navigate into the ipc.py module of Web3, and paste the geth.ipc file address as the *ipc_path* variable on line 23:
  
 ![alt text](https://github.com/Lamden/clove/blob/master/connect/geth_example/ipc_path.png)
   
   > NOTE: This is a quick workaround for this problem and a thorough solution is coming where you can specify many IPC paths without editing modules.
   
-  # Tools
+  ## Tools
   
   To connect to a node from a different terminal window, find the geth.ipc file of the desired node, and write in terminal:
   ~~~~~~~~~
@@ -108,20 +110,20 @@
   $ echo ‘export eth_chains=/Users/yourname/ethereum’ >>~/.bash_profile 
   ~~~~~~~~~
   
-  # End 
+  ## End 
   
   > Testing done on Geth 1.6, 1.7
 
-  Major differences from earlier versions: 
-  1.no setSolc (set path to solidity compiler) function after v1.6
-  1.differences in including dashes for flags, use -h to list all functions and their options
+  ###### Major differences from earlier versions: 
+  * No setSolc (set path to solidity compiler) function after v1.6
+  * Differences in including dashes for flags, use -h to list all functions and their options
 
 
-  ## Known Issues With Geth
+  ###### Known Issues With Geth
   
   * Command shows no output but goes into the Javascript console: 
-   	* entering the same input will execute it
+   	* Entering the same input will execute it
   * Bootnodes does not work 
-    * use admin.addPeer(<enode>) instead 
+    * Use admin.addPeer(<enode>) instead 
   * New genesis block info format (the one in this folder is the latest format)
   
