@@ -7,6 +7,7 @@
   
   > NOTE: The setup can get convoluted unless the chain directories are independent. 
   
+  A condensed script can be found [here](https://github.com/Lamden/clove/blob/master/connect/geth_example/multi_chain_mac).
   
   # Setup
   
