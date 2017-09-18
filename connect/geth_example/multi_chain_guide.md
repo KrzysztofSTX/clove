@@ -1,6 +1,6 @@
   # About
   
-  After installing [Geth](https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum), dedicate a directory to store your blockchains and nodes. Here we will mark that folder ~ and create the following:
+  After installing [Geth](https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum), dedicate a directory to store your blockchains and nodes. Here we will mark that folder **~** and create the following:
   
   1. Directory to hold chain data, keys, and event log (one per chain) 
   1. Directory for genesis blocks
@@ -18,21 +18,21 @@
   |                        |                       |                       |                       |
   Genesis Blocks (2)      Chain 1, Node 1         Chain 1, Node 2         Chain 2, Node 1         Chain 2, Node 2
   |                        |
-  |-----------|            |-------|
-  |           |            |       |
-  gen1.json   gen2.json    geth    keystore
+  |-----------|            |-------|----------|
+  |           |            |       |          |
+  gen1.json   gen2.json    geth    keystore  geth.ipc
   ~~~~~~~~~
   ## Syntax Rules
   * For each chain:
 	  * same genesis block
 	  * same network ID
-	  * nodes connect to each other via admin.addPeer(“ <enode> “) # enode needs quotes
+	  * nodes connect to each other via admin.addPeer( “<enode_string>“ ) 
   * For each node:
 	  * independent directories
 	  * different ports
 	  * at least one account within each node (admin)
     
-  First, we set up the directories in terminal. This can all be done in one terminal window. We set up a chain data directory using a specified genesis block, then create an account. There needs to be at least one account for there to be an admin and perform admin functions such as mining and connecting peer nodes. After you cd to your desired directory:
+  First, we set up the directories in terminal. This can all be done in one terminal window. We set up a chain data directory using a specified genesis block, then create an account. There needs to be at least one account for there to be an admin and perform admin functions such as mining and connecting peer nodes. After you **cd** to your desired directory:
   ~~~~~~~~~
   $ geth --datadir ~/geth_example/chain1node1 init ~/geth_example/gen1.json
   $ geth --datadir ~/geth_example/chain1node2 init ~/geth_example/gen1.json
@@ -91,20 +91,23 @@
   
   When running one chain by itself, using Web3.py to connect is sufficiently easy:
   ~~~~~~~~~
-  from web3 import Web3, HTTPProvider, IPCProvider
-  web3 = Web3(IPCProvider())
+  >>> from web3 import Web3, HTTPProvider, IPCProvider
+  >>> web3 = Web3(IPCProvider())
   ~~~~~~~~~
   from there, you can command the chain just like you did from the command line or the Geth Javascript console, for example:
   ~~~~~~~~~
-  web3.eth.blockNumber - get current chain block number
-  web3.personal.newAccount( "password string" )
-  web3.admin.addPeer( "<enode>" )
-  web3.miner.start(1)
-  web3.miner.stop()
+  >>> web3.eth.blockNumber # get current chain block number
+  >>> web3.personal.newAccount( "password string" )
+  >>> web3.admin.addPeer( "<enode>" )
+  >>> web3.miner.start(1)
+  >>> web3.miner.stop()
   ~~~~~~~~~
-  In case this throws an error [your default ipc_path for Web3 might be "/Users/yourname/Library/Ethereum/geth.ipc"] or you are running more than 1 chain, you can navigate inside your Python site-packages: 
-> ~/site-packages/web3/providers/ipc.py 
-	and on line 32 change the ipc_path variable. At this stage, if you go back to terminal and cd into one of the node folders, for example chain2node2, use the *ls* command to see that the folder contains a hidden element, geth.ipc. There are four of these geth.ipc files since we created 4 nodes. Copy the address of this .ipc file. Navigate into the ipc.py module of Web3, and paste the geth.ipc file address as the *ipc_path* variable on line 23:
+	
+  In case this throws an error, your default ipc_path for Web3 is **/Users/yourname/Library/Ethereum/geth.ipc**. If you are running more than 1 chain, you can navigate inside your Python site-packages: 
+
+> ~/site-packages/web3/providers/ipc.py 	
+
+and on line 32 change the ipc_path variable. At this stage, if you go back to terminal and **cd** into one of the node folders, for example chain2node2, use the **ls** command to see that the folder contains a hidden element, geth.ipc. There are four of these geth.ipc files since we created 4 nodes. Copy the address of this .ipc file. Navigate into the ipc.py module of Web3, and paste the geth.ipc file address as the **ipc_path** variable on line 23:
  
 ![alt text](https://github.com/Lamden/clove/blob/master/connect/geth_example/ipc_path.png)
   
@@ -114,7 +117,7 @@
   
   To connect to a node from a different terminal window, find the geth.ipc file of the desired node, and write in terminal:
   ~~~~~~~~~
-  geth attach ~/geth_example/chain2node2/geth.ipc
+  $ geth attach ~/geth_example/chain2node2/geth.ipc
   ~~~~~~~~~
   Set a variable in your bash profile to use as a shortcut for your folder of chains (named eth_chains here. Use the default ethereum folder or your own designated location):
   ~~~~~~~~~
