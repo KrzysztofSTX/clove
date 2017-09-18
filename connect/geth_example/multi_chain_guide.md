@@ -107,7 +107,7 @@
 
 > ~/site-packages/web3/providers/ipc.py 	
 
-and on line 32 change the ipc_path variable. At this stage, if you go back to terminal and **cd** into one of the node folders, for example chain2node2, use the **ls** command to see that the folder contains a hidden element, geth.ipc. There are four of these geth.ipc files since we created 4 nodes. Copy the address of this .ipc file. Navigate into the ipc.py module of Web3, and paste the geth.ipc file address as the **ipc_path** variable on line 23:
+At this stage, if you go back to terminal and **cd** into one of the node folders, for example chain2node2, use the **ls** command to see that the folder contains a hidden element, geth.ipc. There are four of these geth.ipc files since we created 4 nodes. Copy the address of this .ipc file. Navigate into the ipc.py module of Web3, and paste the geth.ipc file address as the **ipc_path** variable on line 23:
  
 ![alt text](https://github.com/Lamden/clove/blob/master/connect/geth_example/ipc_path.png)
   
