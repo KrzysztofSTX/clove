@@ -1,0 +1,40 @@
+  # Mac OS example for the multi chain guide
+  # terminal window entries represented by $
+  # Geth console entries represented by >
+  # Python shell or script entries represented by >>>
+  # all commands listed in chronological order
+  
+  # window 0
+  
+  $ geth --datadir ~/geth_example/chain1node1 init ~/geth_example/gen1.json
+  $ geth --datadir ~/geth_example/chain1node2 init ~/geth_example/gen1.json
+  $ geth --datadir ~/geth_example/chain2node1 init ~/geth_example/gen2.json
+  $ geth --datadir ~/geth_example/chain2node2 init ~/geth_example/gen2.json  
+  
+  $ geth --datadir ~/geth_example/chain1node1 account new
+  $ geth --datadir ~/geth_example/chain1node2 account new
+  $ geth --datadir ~/geth_example/chain2node1 account new
+  $ geth --datadir ~/geth_example/chain2node2 account new
+  
+  # window 1
+  $ geth --datadir ~/geth_example/chain1node1 --networkid 1111 --port30303 console
+  > admin.nodeInfo.enode # let this be enode1
+  
+  # window 2
+  $ geth --datadir ~/geth_example/chain1node2 --networkid 1111 --port30304 console
+  > admin.addPeer( enode1 )
+  > admin.peers
+  
+  # window 3
+  $ geth --datadir ~/geth_example/chain2node1 --networkid 2222 --port30305 console
+  > admin.nodeInfo.enode # let this be enode2
+  
+  # window 4
+  $ geth --datadir ~/geth_example/chain2node2 --networkid 2222 --port30306 console
+  > admin.addPeer( enode2 )
+  > admin.peers
+  
+  # python shell 
+  >>> from web3 import Web3, HTTPProvider, IPCProvider
+  >>> web3 = Web3(IPCProvider())
+  >>> web3.admin.nodeInfo
