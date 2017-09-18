@@ -1,5 +1,7 @@
   # About
   
+  The purpose is to set up two private local blockchains using Geth to test chain-to-chain communications and contracts. Here we will use IPC connections. 
+  
   After installing [Geth](https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum), dedicate a directory to store your blockchains and nodes. Here we will mark that folder **~** and create the following:
   
   1. Directory to hold chain data, keys, and event log (one per chain) 
