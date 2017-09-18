@@ -10,24 +10,35 @@
   
   # Setup
   
+  The setup can get convoluted unless the chain directories are independent. Here is how we will do it for this example:
+  ~~~~~~~~~
+  ~ (Main folder)
+  |
+  |------------------------|-----------------------|-----------------------|-----------------------|
+  |                        |                       |                       |                       |
+  Genesis Blocks (2)      Chain 1, Node 1         Chain 1, Node 2         Chain 2, Node 1         Chain 2, Node 2
+  |                        |
+  |-----------|            |-------|
+  |           |            |       |
+  gen1.json   gen2.json    geth    keystore
+  ~~~~~~~~~
   ## Syntax Rules
-  
-  1.For each chain:
-	  1.same genesis block
-	  1.same network ID
-	  1.nodes connect to each other via admin.addPeer(“ <enode> “) # enode needs quotes
-  1.for each node:
-	  1.independent directories
-	  1.different ports
-	  1.at least one account within each node (admin)
+  * For each chain:
+	  * same genesis block
+	  * same network ID
+	  * nodes connect to each other via admin.addPeer(“ <enode> “) # enode needs quotes
+  * For each node:
+	  * independent directories
+	  * different ports
+	  * at least one account within each node (admin)
     
   First, we set up the directories in terminal. This can all be done in one terminal window. We set up a chain data directory using a specified genesis block, then create an account. There needs to be at least one account for there to be an admin and perform admin functions such as mining and connecting peer nodes. After you cd to your desired directory:
-  ~
+  ~~~~~~~~~
   $ geth --datadir ~/geth_example/chain1node1 init ~/geth_example/gen1.json
   $ geth --datadir ~/geth_example/chain1node2 init ~/geth_example/gen1.json
   $ geth --datadir ~/geth_example/chain2node1 init ~/geth_example/gen2.json
   $ geth --datadir ~/geth_example/chain2node2 init ~/geth_example/gen2.json  
-  ~
+  ~~~~~~~~~
   ## Admin Accounts: 
   ~~~~~~~~~
   $ geth --datadir ~/geth_example/chain1node1 account new
