@@ -82,7 +82,7 @@
   
   To start mining with 1 thread. Your first two windows will start mining their own blockchain and the other two will mine theirs. This should look something like:
   
-  ![mining](https://github.com/Lamden/clove/blob/master/connect/geth_example/mining.png)
+![alt text](https://github.com/Lamden/clove/blob/master/connect/geth_example/mining.png)
   
   Write miner.stop() to pause mining. 
   
@@ -104,7 +104,7 @@
   
   In case this throws an error [your default ipc_path for Web3 might be "/Users/yourname/Library/Ethereum/geth.ipc"] or you are running more than 1 chain, you can navigate inside your Python site-packages: /site-packages/web3/providers/ipc.py and on line 32 change the ipc_path variable. At this stage, if you go back to terminal and cd into one of the node folders, for example chain2node2, use the ls command to see that the folder contains a hidden element, geth.ipc. There are four of these geth.ipc files since we created 4 nodes. Copy the address of this .ipc file. Navigate into the ipc.py module of Web3, and paste the geth.ipc file address as the ipc_path variable on line 23:
  
-  ![alt text](https://github.com/Lamden/clove/blob/master/connect/geth_example/ipc_path.png)
+![alt text](https://github.com/Lamden/clove/blob/master/connect/geth_example/ipc_path.png)
   
   NOTE: This is a quick workaround for this problem and a thorough solution is coming where you can specify many IPC paths without editing modules.
   
