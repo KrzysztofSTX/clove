@@ -107,7 +107,7 @@ contract HelloWorld {
 
 }
 '''
-# contrat from https://ethereum.stackexchange.com/questions/12348/hello-world-smart-contract-using-browser-solidity
+# contract from https://ethereum.stackexchange.com/questions/12348/hello-world-smart-contract-using-browser-solidity
 # compiled using browser solidity (Remix)
        
 
