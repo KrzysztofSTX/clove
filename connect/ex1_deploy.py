@@ -1,4 +1,5 @@
 from web3 import Web3, IPCProvider, contract
+import time
 
 '''
 Example script to deploy a contract using Web3-py format.
@@ -13,12 +14,13 @@ Assumptions:
 3. Admin has some some ether/wei
 '''
 
+
 # ACCOUNT SETUP
 #~~~~~~~~~~~~~~
 #~~~~~~~~~~~~~~
 
 # connect to chain
-web3 = Web3(IPCProvider())
+web3 = Web3(IPCProvider()) # web3 is just the object name here, can be Bob or Alice
 
 
 # create a recipint account
@@ -37,12 +39,7 @@ add1 = web3.personal.listAccounts[1]
 # unlock both accounts (only need to unlock sender)
 web3.personal.unlockAccount( add0,'password_0')
 web3.personal.unlockAccount( add1,'password_1')
-
-
-# get balance of each account
-balance_0 = web3.eth.getBalance( add0 )
-balance_1 = web3.eth.getBalance( add1 )
-print( balance_0, balance_1 )
+web3.miner.start(1)
 
 
 # CONTRACT SETUP
@@ -80,10 +77,55 @@ a = hello.deploy(transaction = tran_0) #returns transaction hash
 
 
 # check whether the transaction went through, returns tx details.
-b = web3.eth.getTransaction( a ) # a = <transaction hash from above>
-print(len( b ))
-print( web3.eth.getTransactionReceipt( a )
+# a = <transaction hash from above>
+b = web3.eth.getTransaction( a ) 
+print(b)
+print(web3.eth.getTransactionReceipt( a ))
 
+
+# financial transaction
+# NOTE: make sure your chain is mining
+tran_1 = {'from': add0,
+       'to': add1 ,
+       'value': 2,
+       #'gasPrice':0,
+       }
+
+
+# NOTE: for testing, the gas estimate is calculated by
+# the gas minimum and difficulty settings of the genesis block;
+# an easy block called 'gen3.json' can be found in /geth_example/genesis/
+gastimate = web3.eth.estimateGas( tran_1 )
+print( 'Estimated gas price:', gastimate)
+
+
+# get balance of each account
+balance_0 = web3.eth.getBalance( add0 )
+balance_1 = web3.eth.getBalance( add1 )
+print( 'Account balances:', [balance_0, balance_1] )
+
+
+if balance_0 <= gastimate:
+    print( 'Not enough ETH to cover gas cost' )
+    web3.miner.start(1)
+
+
+a = web3.eth.sendTransaction( tran_1 )
+
+
+wait = 0
+while web3.eth.getTransaction( a ) == None:
+    message = 'Waiting for transaction to mine' + wait * '.'
+    print(message)
+    wait += 1
+    time.sleep(1)
+print( 'Transaction mined!' )
+print( 'Account balances:\n', [balance_0, balance_1] )
+    
+print( 'Receipt:\n', web3.eth.getTransactionReceipt( a ))
+print( 'Transaction:\n', web3.eth.getTransaction( a ))
+
+web3.miner.stop()
 
 source = '''
 pragma solidity ^0.4.6;
@@ -107,13 +149,6 @@ contract HelloWorld {
 
 }
 '''
-# contract from https://ethereum.stackexchange.com/questions/12348/hello-world-smart-contract-using-browser-solidity
+
+# contrat from https://ethereum.stackexchange.com/questions/12348/hello-world-smart-contract-using-browser-solidity
 # compiled using browser solidity (Remix)
-       
-
-
-
-
-
-
-
