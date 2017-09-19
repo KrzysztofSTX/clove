@@ -146,5 +146,4 @@ At this stage, if you go back to terminal and **cd** into one of the node folder
     * Use admin.addPeer(<enode>) instead 
   * New genesis block info format (the one in this folder is the latest format)
   * Geth Javascript console does not initiate
-	* You can initiate a connection to that node and use the console via geth attach ipc:<address to ipc file>
-  
+	* You can initiate a connection to that node and use the console via geth attach ipc (see Tools above)
