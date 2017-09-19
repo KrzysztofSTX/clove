@@ -122,6 +122,8 @@ At this stage, if you go back to terminal and **cd** into one of the node folder
   ~~~~~~~~~
   $ geth attach ~/geth_example/chain2node2/geth.ipc
   ~~~~~~~~~
+  > NOTE: This is useful in case a terminal window does not initiate in some versions, or is busy mining. 
+  
   Set a variable in your bash profile to use as a shortcut for your folder of chains (named eth_chains here. Use the default ethereum folder or your own designated location):
   ~~~~~~~~~
   $ echo ‘export eth_chains=/Users/yourname/ethereum’ >>~/.bash_profile 
@@ -143,4 +145,6 @@ At this stage, if you go back to terminal and **cd** into one of the node folder
   * Bootnodes does not work 
     * Use admin.addPeer(<enode>) instead 
   * New genesis block info format (the one in this folder is the latest format)
+  * Geth Javascript console does not initiate
+	* You can initiate a connection to that node and use the console via geth attach ipc:<address to ipc file>
   
