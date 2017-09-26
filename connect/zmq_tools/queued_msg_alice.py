@@ -60,7 +60,7 @@ print( 'Time to connect:', end-start )
 
 # part 2: receive a number of messages and reply to them
 
-heartbeat_c( 1000000, False)
+heart_beat_c( 1000000, False)
 
 print('Done')
 
