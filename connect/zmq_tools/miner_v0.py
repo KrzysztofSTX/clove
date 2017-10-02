@@ -143,20 +143,42 @@ def miner_publisher( author_addr = '127.0.0.1',
         
        
         
-def miner_listener(  ports = ['5556'],
-                     message_limit = 10,
-                     frequency = 1
-                     delimiter = '///'
-                     ):
+
+def update_consensus( current_log,
+                      past_log,
+                      ports = ['5556'],
+                      ):
     '''
-    The format of the messages miners are assumed ot send each other:
-    At mining ports, miners push bytecode, variations,
-    and consensus polls.
+    current_log is the information miners provide for distribution,
+    and past_log is the info on the current consensus state.
+
+    To check whether a specific miner has contributed, a list of addresses
+    is kept for each compilation version. It also keeps a 'voter list' for
+    the different compilations.
+    
+    Works with a file that keeps track of which contract compilations are
+    the mostagreed upon based on miners.
     '''
+    
+    { 'author' : author_addr,
+        'source' : author_source,
+        'bytecode' : bytecode,
+        'abi' : abi,
+        'miner' : ip_ addr, # miner address used to 'sign' a compilation
+        'consensus': {
+            'compilation_variation' : [ ], #list of supporting miner addresses
+            'miner_addresses' : [ ], # list of addresses of miners agreeing to
+                # the above compiled bytecode, in order.
+        }
+    }
+    assert current_log['author'] == past_log['author']
+    assert current_log['source'] == past_log['source']
+
+    # TODO: either system to randomize miner recipients,
+    # or find a way for small-vote compilations to make it
+    # IDEA: reverse snow-ball effect, where a variation gains less popularity
+    # the more additional people support it as long as others have a form of
+    # verification that makes it legitimate (randomized locations, etc)
 
 
-def router():
-    '''
-    '''
-    pass
 
