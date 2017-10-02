@@ -195,6 +195,101 @@ class miner_log:
 
         return messages
 
+    
+    def update_consensus( current_log,
+                      past_log,
+                      ports = ['5556'],
+                      ):
+    '''
+    current_log is the information miners provide for distribution,
+    and past_log is the info on the current consensus state.
+
+    To check whether a specific miner has contributed, a list of addresses
+    is kept for each compilation version. It also keeps a 'voter list' for
+    the different compilations.
+    
+    Works with a file that keeps track of which contract compilations are
+    the mostagreed upon based on miners.
+    '''
+    
+    { 'author' : author_addr,
+        'source' : author_source,
+        'bytecode' : bytecode,
+        'abi' : abi,
+        'miner' : ip_ addr, # miner address used to 'sign' a compilation
+        'consensus': {
+            'compilation_variation' : [ ], #list of supporting miner addresses
+            'miner_addresses' : [ ], # list of addresses of miners agreeing to
+                # the above compiled bytecode, in order.
+        }
+    }
+    assert current_log['author'] == past_log['author']
+    assert current_log['source'] == past_log['source']
+
+    # TODO: either system to randomize miner recipients,
+    # or find a way for small-vote compilations to make it
+    # IDEA: reverse snow-ball effect, where a variation gains less popularity
+    # the more additional people support it as long as others have a form of
+    # verification that makes it legitimate (randomized locations, etc)
+
+    # under construction
+
+def miner_listener(  ports = ['5556'],
+                     addresses = ['127.0.0.1'],
+                     filters = ['Bob', 'Alice'],
+                     recv_message_limit = 10,
+                     frequency = 1,
+                     broadcast_time = 600
+                     ):
+    '''
+    The format of the messages miners are assumed ot send each other:
+    At mining ports, miners push author, source, bytecode, abi, miner,
+    and the consensus info is an embedded json file with:
+    variations, consensus polls, miner addresses for each variation.
+    { 'author' : author_addr,
+        'source' : author_source,
+        'bytecode' : bytecode,
+        'abi' : abi,
+        'miner' : ip_ addr, # miner address used to 'sign' a compilation
+        'consensus': {
+            'compilation_variation' : [ ], #list of supporting miner addresses
+        }
+    }
+    the last entry will be a dictionary of variations. To keep its size limited,
+    only the top 5 compilation variations will proceed after a miner processes
+    it and broadcasts it forward.
+    
+    Works in conjunction with the update_consensus function to aggregate
+    compilation results.
+    Filters are used to filter through the messages at the port for specific
+    countract authors.
+    '''
+
+    context = zmq.Context()
+    miner_receiver = context.socket(zmq.PULL)
+
+    # connect sockt to all ports for listening to
+    for addr in addresses: 
+        miner_receiver.connect('tcp://' + addr + ':5557')
+
+    # socket for sending the updated file
+    consumer_sender = context.socket(zmq.PUSH)
+    consumer_sender.connect("tcp://127.0.0.1:5558")
+
+    messages = []
+    while len(messages) <= message_limit
+        msg = miner_receiver.recv_json()
+        messages.append(msg)
+
+    # process all messages with update_consensus function
+    consensus = update_consensus( messages )
+    
+    start = time.time()
+    while int(time.time()) - start <= broadcast_time:
+        zmq_socket.send_json( message )
+        time.sleep( frequency )
+        
+
 
 
 
