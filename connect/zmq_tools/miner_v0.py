@@ -83,7 +83,65 @@ def source_listener( ports = ['5556'],
 
     return messages
         
+    
+    
+def miner_publisher( author_addr = '127.0.0.1',
+                     author_source = '''hello'''
+                     bytecode = '0x1234',
+                     abi = 'abi here',
+                     ip_addr = '127.0.0.1', # self or queue device
+                     json_file = None
+                     ports = ['5558'],
+                     frequency = 1,
+                     port_update_frequency = 5 # seconds to wait before checking
+                         # whether to update the port 
+                     ):
+    '''
+    Publishes the miner's bytecode and ABI until consensus is reached.
+    'frequency' parameter describes how often to broadcast this.
+    '''
+    # OPTIONAL: pass ABI as string or list. List requires modification from json to
+    # Python format
+
+    context = zmq.Context()
+    zmq_socket = context.socket(zmq.PUSH)
+
+    # TODO: add peer via enode
+    # TODO: add other address particulars
+    zmq_socket.bind("tcp://" + ip_addr + ":5557")
+
+
+    if json_file:
+        message = { 'author' : author_addr,
+                    'source' : author_source,
+                    'bytecode' : bytecode,
+                    'abi' : abi,
+                    'miner' : ip_ addr, # miner address used to 'sign' a compilation
+                    }
+        use_json = False
+    else:
+        use_json = True
         
+        
+    consensus_reached = False
+    time_to_reroute = False
+
+    start_time = int( time.time() )
+    
+    while not ( consensus_reached and time_to_reroute ):
+
+        if use_json:
+            zmq_socket.send_json( message )
+        else:
+            zmq_socket.send_json( json_file )       
+
+        if int( time.time() ) - start_time >= port_update_frequency:
+            time_to_reroute = True
+            
+            # TODO: add block for rerouting
+            # receiving port from an authority, and connecting to it. 
+        
+       
         
 def miner_listener(  ports = ['5556'],
                      message_limit = 10,
