@@ -18,7 +18,7 @@
   
   # terminal window 1
   $ geth --datadir ~/geth_example/chain1node1 --networkid 1111 --port 30303 console
-  > admin.nodeInfo.enode # let this be enode1
+  > admin.nodeInfo.enode // let this be enode1
   
   # terminal window 2
   $ geth --datadir ~/geth_example/chain1node2 --networkid 1111 --port 30304 console
@@ -27,7 +27,7 @@
   
   # terminal window 3
   $ geth --datadir ~/geth_example/chain2node1 --networkid 2222 --port 30305 console
-  > admin.nodeInfo.enode # let this be enode2
+  > admin.nodeInfo.enode // let this be enode2
   
   # terminal window 4
   $ geth --datadir ~/geth_example/chain2node2 --networkid 2222 --port 30306 console
