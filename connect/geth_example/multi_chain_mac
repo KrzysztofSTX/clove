@@ -17,20 +17,20 @@
   $ geth --datadir ~/geth_example/chain2node2 account new
   
   # terminal window 1
-  $ geth --datadir ~/geth_example/chain1node1 --networkid 1111 --port30303 console
+  $ geth --datadir ~/geth_example/chain1node1 --networkid 1111 --port 30303 console
   > admin.nodeInfo.enode # let this be enode1
   
   # terminal window 2
-  $ geth --datadir ~/geth_example/chain1node2 --networkid 1111 --port30304 console
+  $ geth --datadir ~/geth_example/chain1node2 --networkid 1111 --port 30304 console
   > admin.addPeer( enode1 )
   > admin.peers
   
   # terminal window 3
-  $ geth --datadir ~/geth_example/chain2node1 --networkid 2222 --port30305 console
+  $ geth --datadir ~/geth_example/chain2node1 --networkid 2222 --port 30305 console
   > admin.nodeInfo.enode # let this be enode2
   
   # terminal window 4
-  $ geth --datadir ~/geth_example/chain2node2 --networkid 2222 --port30306 console
+  $ geth --datadir ~/geth_example/chain2node2 --networkid 2222 --port 30306 console
   > admin.addPeer( enode2 )
   > admin.peers
   
