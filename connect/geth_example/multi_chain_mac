@@ -6,10 +6,10 @@
   # ~ stands for your main upper directory of choice
   
   # terminal window 0
-  $ geth --datadir ~/geth_example/chain1node1 init ~/geth_example/gen1.json
-  $ geth --datadir ~/geth_example/chain1node2 init ~/geth_example/gen1.json
-  $ geth --datadir ~/geth_example/chain2node1 init ~/geth_example/gen2.json
-  $ geth --datadir ~/geth_example/chain2node2 init ~/geth_example/gen2.json  
+  $ geth --datadir ~/geth_example/chain1node1 init ~/geth_example/genesis/gen1.json
+  $ geth --datadir ~/geth_example/chain1node2 init ~/geth_example/genesis/gen1.json
+  $ geth --datadir ~/geth_example/chain2node1 init ~/geth_example/genesis/gen2.json
+  $ geth --datadir ~/geth_example/chain2node2 init ~/geth_example/genesis/gen2.json  
   
   $ geth --datadir ~/geth_example/chain1node1 account new
   $ geth --datadir ~/geth_example/chain1node2 account new
@@ -22,7 +22,7 @@
   
   # terminal window 2
   $ geth --datadir ~/geth_example/chain1node2 --networkid 1111 --port 30304 console
-  > admin.addPeer( enode1 )
+  > admin.addPeer( enode1 ) // requires manual input of enode1
   > admin.peers
   
   # terminal window 3
@@ -31,7 +31,7 @@
   
   # terminal window 4
   $ geth --datadir ~/geth_example/chain2node2 --networkid 2222 --port 30306 console
-  > admin.addPeer( enode2 )
+  > admin.addPeer( enode2 ) // requires manual input of enode2
   > admin.peers
   
   # python shell 
