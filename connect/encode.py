@@ -7,7 +7,7 @@ def encode(data,
     FORMAT:
     ~~~~~~~
     data = {'author':'Bob',
-            'source':'Ayyy',
+            'source':'Contract Source',
             'variations':
                 [
                     { 'bytecode':'0x18239uyehriofeb',
@@ -66,18 +66,4 @@ def decode(data,
     json_file['variations'] = variations
     return json_file
         
-data = {'author':'Bob',
-        'source':'Ayyy',
-        'variations':
-            [
-                { 'bytecode':'0x18239uyehriofeb',
-                   'abi':'this is abi', # convert abi to string
-                   # to avoid differences in Solc for python / javascript
-                   'voters':['miner1']
-                  },
-                { 'bytecode':'0x98py413uh2reogiu43e',
-                   'abi':'this is another abi',
-                   'voters':['miner3','miner4']
-                  },
-            ]
-        }
+
