@@ -1,4 +1,4 @@
-from web3 import Web3, IPCProvider, contract, HHTPProvider
+from web3 import Web3, IPCProvider, contract, HTTPProvider
 import time
 
 
