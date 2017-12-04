@@ -1,6 +1,8 @@
-# ABI to String and back
+# ABI To String And Back
 
 Converts a contract ABI in all its complexity into a string (which can additionally be encrypted) in order to be sent over ZMQ as a message. Also includes the tool to turn the string back into the original ABI. 
+
+###### For this example we shall use the Ballot contract from the Remix home page.
 
 ~~~~~
 ABI UNFORMATTED:
