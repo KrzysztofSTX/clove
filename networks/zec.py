@@ -1,0 +1,1 @@
+endpoints = ['https://zcash.blockexplorer.com/tx/send']

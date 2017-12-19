@@ -26,33 +26,6 @@ import requests
 
 j = '{rawtx: "135235235235"}'
 
-btc_nodes = ['https://insight.bitpay.com/tx/send',
-			'https://blockchain.info/pushtx',
-			'https://blockexplorer.com/tx/send',
-			'https://btc.com/tools/tx/publish',
-			'https://coinb.in/#broadcast',
-			'https://chain.localbitcoins.com/tx/send',
-			'http://webbtc.com/relay_tx',
-			'https://www.smartbit.com.au/txs/pushtx',
-			'https://live.blockcypher.com/btc/pushtx/',
-			'https://pool.viabtc.com/tools/BTC/broadcast/',
-			'https://chainquery.com/bitcoin-api/sendrawtransaction']
-
-bcc_nodes = ['https://bcc.zupago.pe/tx/send',
-			'https://bitcoincash.blockexplorer.com/tx/send',
-			'https://blockdozer.com/insight/tx/send',
-			'https://bch-insight.bitpay.com/tx/send']
-
-dash_nodes = ['http://insight.masternode.io:3000/tx/send',
-				'https://insight.dash.org/insight/tx/send',
-				'https://live.blockcypher.com/dash/pushtx/',
-				'https://insight.dash.siampm.com/tx/send']
-
-ltc_nodes = ['https://live.blockcypher.com/ltc/pushtx/',
-			'https://insight.litecore.io/tx/send']
-
-zcash_nodes = ['https://zcash.blockexplorer.com/tx/send']
-
 from bitcoin import base58
 import secrets
 from datetime import datetime, timedelta, time

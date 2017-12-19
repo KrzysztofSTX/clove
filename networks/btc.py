@@ -1,0 +1,11 @@
+endpoints = ['https://insight.bitpay.com/tx/send',
+			'https://blockchain.info/pushtx',
+			'https://blockexplorer.com/tx/send',
+			'https://btc.com/tools/tx/publish',
+			'https://coinb.in/#broadcast',
+			'https://chain.localbitcoins.com/tx/send',
+			'http://webbtc.com/relay_tx',
+			'https://www.smartbit.com.au/txs/pushtx',
+			'https://live.blockcypher.com/btc/pushtx/',
+			'https://pool.viabtc.com/tools/BTC/broadcast/',
+			'https://chainquery.com/bitcoin-api/sendrawtransaction']
