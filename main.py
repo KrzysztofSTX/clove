@@ -1,43 +1,43 @@
-from btcpy.setup import setup
-from btcpy.structs.script import Script
-setup('regtest')
+import ecdsa
 
-def atomic_swap(hashed_secret, bob_pub_key_hash, timelock, alice_pub_key_hash):
-	return Script.compile('OP_IF OP_RIPEMD160 {} OP_EQUALVERIFY OP_DUP OP_HASH160 {} ' \
-	'OP_ELSE {} OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 {} OP_ENDIF ' \
-	'OP_EQUALVERIFY OP_CHECKSIG'.format(hashed_secret, bob_pub_key_hash, timelock, alice_pub_key_hash))
+tx_hash = '3f285f083de7c0acabd9f106a43ec42687ab0bebe2e6f0d529db696794540fea'
 
-def push_data(d):
-	return hex(len(d))[2:]
+def chunk(l, n):
+	return [l[i:i + n] for i in range(0, len(l), n)]
 
-def redeem(signature, pub_key, secret, contract):
-	return Script.compile('{} {} {} {} {} {} OP_1 {} {}'.format(
-		push_data(signature),
-		signature,
-		push_data(pub_key),
-		pub_key,
-		push_data(secret),
-		secret,
-		push_data(contract),
-		contract
-	))
+def reverse_bytes(b):
+	b = chunk(b, 2)
+	b = list(reversed(b))
+	return "".join(b)
 
-import requests
+def left_pad(s, n):
+	while len(s) < n:
+		s = '0' + s
+	return s
 
-j = '{rawtx: "135235235235"}'
+def btc_to_bytes(btc):
+	btc *= 100000000
+	return hex(int(btc))[2:]
 
-from bitcoin import base58
-import secrets
-from datetime import datetime, timedelta, time
+def float_to_bytes(f, d):
+	f *= 10**d
+	return hex(int(f))[2:]
 
-alice_address = base58.decode('184TDZtb8Nbq8qnLkvw6nDWtHSrWRubeFW').hex()
-bob_address   = base58.decode('19jwLMSXsUSZvW7H49KC94H7Zvkx1DUfuU').hex()
-secret        = secrets.token_hex(8)
-timelock      = hex(int((datetime.now() + timedelta(hours=24)).timestamp()))[2:]
+def raw_transaction(tx_hash, value):
+	version = '01000000'
+	input_count = '01'
 
-atomic_swap(secret, bob_address, timelock, alice_address)
+	previous_output_index = '00000000'
 
-print(alice_address)
-print(timelock)
+	sequence = 'ffffffff'
 
-print(hex(50))
+	output_count = '01'
+
+	value = float_to_bytes(value, 8)
+	value = left_pad(value, 16)
+	value = reverse_bytes(value)
+	print(value)
+
+	block_lock_time = '00000000'
+
+raw_transaction(tx_hash, 0.00091234)

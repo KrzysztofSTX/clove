@@ -12,7 +12,7 @@ def address_to_raw_tx_data(a):
 	a_hex = base58.decode(a).hex()
 	return push_data(a_hex) + a_hex
 
-def atomic_swap(secret, bob_address, alice_address):
+def atomic_swap(secret_hash, bob_address, alice_address):
 	# set the expiration one day 
 	timelock = hex(int((datetime.now() + timedelta(hours=24)).timestamp()))[2:]
 	timelock_raw_tx_data = push_data(timelock) + timelock
@@ -35,6 +35,18 @@ def atomic_swap(secret, bob_address, alice_address):
 			OP_HASH160,
 			address_to_raw_tx_data(bob_address),
 			OP_ENDIF])
+
+def redeem(signature, pub_key, secret, contract):
+	return Script.compile('{} {} {} {} {} {} OP_1 {} {}'.format(
+		push_data(signature),
+		signature,
+		push_data(pub_key),
+		pub_key,
+		push_data(secret),
+		secret,
+		push_data(contract),
+		contract
+	))
 
 alice = '16UFUyyQ5qxkiSFhsGVrAPKDyjUr5u4MRv'
 bob = '18LhCMLzDbh1c5xp2zgLH2WWcmvchMgCEV'
